@@ -3,4 +3,7 @@ public class HumanPlayer extends Player {
         super(positionX, positionY, goldCollected);
     }
 
+    public void pickUpGold(){ 
+        }
+
 }

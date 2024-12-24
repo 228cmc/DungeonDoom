@@ -23,8 +23,7 @@ public class Player {
         public void moveSouth(){ 
         }
 
-        public void pickUpGold(){ 
-    }
+
 
     }
 
