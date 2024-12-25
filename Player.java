@@ -1,8 +1,8 @@
 public class Player {
 
-    private int positionX;
-    private int positionY;
-    private int goldCollected;
+     int positionX;
+     int positionY;
+     int goldCollected;
 
     public Player( int positionX, int positionY, int goldCollected) {
         this.positionX =positionX;
