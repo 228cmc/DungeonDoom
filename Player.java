@@ -4,10 +4,10 @@ public class Player {
     private int positionY;
     private int goldCollected;
 
-    public Player( int positionX, int positionY, int goldCollected) {
-        this.positionX =positionX;
-        this.positionY = positionY;
-        this.goldCollected = goldCollected;
+    public Player( int positionX, int  positionY, int goldCollected) {
+        this.setPositionX(positionX);
+        this.setPositionY(positionY);
+        this.setGoldCollected(goldCollected);
 
 
     }
@@ -24,7 +24,7 @@ public void setPositionX(int positionX){
 
 
 public int getPositionY() {
-    return positionX;
+    return positionY;
 }
 
 public void setPositionY(int positionY){
