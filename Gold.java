@@ -17,7 +17,7 @@ public class Gold {
     //triggered with hello 
         return  amount;
     
-
+    }
     public int currentGold() {
         return amount;
     }
@@ -31,7 +31,7 @@ public class Gold {
         amount --;
         return amount;
     }
-}
+
 
 
 
