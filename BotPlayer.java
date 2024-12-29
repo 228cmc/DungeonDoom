@@ -3,5 +3,7 @@ public class BotPlayer extends Player {
         super(positionX, positionY, goldCollected);
     }
 
+    public void chaseHuman(){ 
+    }
 }
 
