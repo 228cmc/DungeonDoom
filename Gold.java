@@ -4,7 +4,7 @@ public class Gold {
     private int positionY;
 
 
-    public  Gold (int amount, int positionX, int getPositionY) {
+    public  Gold (int amount, int positionX, int positionY) {
         this.amount = amount;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -16,7 +16,7 @@ public class Gold {
     public int  requiredGold(){ 
     //triggered with hello 
         return  amount;
-    }
+    
 
     public int currentGold() {
         return amount;
@@ -31,4 +31,31 @@ public class Gold {
         amount --;
         return amount;
     }
+}
+
+
+
+
+
+//setters for the variables 
+
+
+public int getPositionX() {
+    return positionX;
+}
+
+public void setPositionX(int positionX){
+    this.positionX = positionX;
+}
+
+
+public int getPositionY() {
+    return positionY;
+}
+
+public void setPositionY(int positionY){
+    this.positionY= positionY;
+}
+
+
 }
