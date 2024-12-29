@@ -14,4 +14,12 @@ public class Board {
         this.botPlayer = new BotPlayer(titles, titles, titles);
         this.humanPlayer  = new HumanPlayer(titles, titles, titles);
     
+
+    public void LookGrid(){
+
+    }
+
+    public void quit() {
+        
+    }
 }
