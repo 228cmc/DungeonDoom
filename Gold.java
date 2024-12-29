@@ -1,9 +1,14 @@
 public class Gold {
     private int amount;
+    private int positionX;
+    private int positionY;
 
 
-    public  Gold (int amount){
+    public  Gold (int amount, int positionX, int getPositionY) {
         this.amount = amount;
+        this.positionX = positionX;
+        this.positionY = positionY;
+
     }
 
 
