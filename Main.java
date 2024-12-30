@@ -1,16 +1,19 @@
-public class Main{ // main doesn't have a constructor it is an special method
-// to execute test javac Main.java ... java Main
+import java.util.Scanner;
 
+public class Main { 
+    public static void main (String[] args) {  
+        String filePath;
 
-public static  void main (String[] args) {  //main  lowercase is a method
-    Gold gold = new Gold(5,2,3);
+        if (args.length < 1) {
+            System.out.println("No file path given,  please type the path:");
+            Scanner scanner = new Scanner(System.in);
+            filePath = scanner.nextLine();
+            scanner.close();
+        } else {
+            filePath = args[0];
+        }
 
-    EmptyFloor floor = new EmptyFloor(1,2);// 1 and 2 values for test purposes
-    floor.getValidLines("exampleBoard.txt");
-    
-    System.out.println("Gold amount : " + gold.currentGold());
-    gold.addGold();
-    System.out.println("Gold amount : " + gold.currentGold());
+        Board board = new Board();
+        board.initializeBoard(filePath);
     }
-
 }
