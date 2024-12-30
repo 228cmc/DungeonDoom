@@ -42,7 +42,6 @@ public class EmptyFloor {
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
 
-
             String line; //inicialize line
             List<String> lines = new ArrayList<>();
 
@@ -51,9 +50,17 @@ public class EmptyFloor {
                     lines.add(line);
 
                 }else { 
-                    System.out.println("error");
+                    System.out.println("invalid line: " + line);
                 }
             }
+
+            System.out.println("Board");
+
+            //print the whole board to check 
+            for (String l:lines) {
+                System.out.println(l);
+            }
+
 
 
             bufferedReader.close();
