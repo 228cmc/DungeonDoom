@@ -42,25 +42,34 @@ public class EmptyFloor {
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
 
-            String line; //inicialize line
+
+
+
+            //inicialize line, lines, count for determining first line
+            String line; 
             List<String> lines = new ArrayList<>();
+            int count =0;
+
+            //validation
 
             while((line = bufferedReader.readLine()) !=null) {
 
+                line = line.trim();//allow spaces at the beginning and end
 
-                if(!line.matches(".*[PBGE.#].#")){
-                    System.out.println(" with no caracters valid" + line);
-                    continue;
-                }
-
-
-                //second validation
                 if (containsValidLetters(line)) {
+                    count++;
+                    if (count ==1){
+                        this.width= line.length();
+                        System.out.println(this.width);
+                    }
                     lines.add(line);
                 }else { 
                     System.out.println("invalid line: " + line);
                 }
             }
+
+
+
 
             System.out.println("Board");
 
@@ -80,12 +89,11 @@ public class EmptyFloor {
     }
 
     private boolean containsValidLetters(String line) {
-        if (line.matches (".*[PBGE.#]+.*")) {
+        if (!line.matches("[PBGE.#]+")) {//the line has to have valid characters
 
-                if (!line.contains("##") && !line.contains("..")) {
-            return false; // No cumple con la condición de '#' o '..'
+            return false; 
         }
-        }
+        
         return true;
     }
 }
