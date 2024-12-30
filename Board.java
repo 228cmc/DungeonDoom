@@ -34,11 +34,13 @@ public class Board {
             System.out.println("No valid lines where found");
             return;
         }
+        getPositions(lines);
+
     }
 
 
 
-    public void getPostitions (List<String> lines) {
+    public void getPositions (List<String> lines) {
 
         int boardHeight = emptyFloor.getHeight();
         int boardWidth = emptyFloor.getWidth();
