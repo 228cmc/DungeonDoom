@@ -28,6 +28,25 @@ public class Board {
         }
     }
 
+
+
+    public void getPostitions (List<String> lines) {
+
+        int boardHeight = emptyFloor.getHeight();
+        int boardWidth = emptyFloor.getWidth();
+
+
+        for ( int y=0; y< boardHeight; y ++) {
+            String line = lines.get(y); //get y coordinate
+
+
+
+        }
+    }
+
+
+
+
     public void LookGrid(){
 
     }
