@@ -47,6 +47,14 @@ public class EmptyFloor {
 
             while((line = bufferedReader.readLine()) !=null) {
 
+
+                if(!line.matches(".*[PBGE.#].#")){
+                    System.out.println(" with no caracters valid" + line);
+                    continue;
+                }
+
+
+                //second validation
                 if (containsValidLetters(line)) {
                     lines.add(line);
                 }else { 
