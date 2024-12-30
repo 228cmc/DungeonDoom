@@ -46,9 +46,9 @@ public class EmptyFloor {
             List<String> lines = new ArrayList<>();
 
             while((line = bufferedReader.readLine()) !=null) {
-                if (line.matches (".*[PBGE.#]+.*")) {
-                    lines.add(line);
 
+                if (containsValidLetters(line)) {
+                    lines.add(line);
                 }else { 
                     System.out.println("invalid line: " + line);
                 }
@@ -71,5 +71,13 @@ public class EmptyFloor {
         }
     }
 
+    private boolean containsValidLetters(String line) {
+        if (line.matches (".*[PBGE.#]+.*")) {
 
+                if (!line.contains("##") && !line.contains("..")) {
+            return false; // No cumple con la condición de '#' o '..'
+        }
+        }
+        return true;
+    }
 }
