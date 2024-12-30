@@ -8,10 +8,11 @@ public class Board {
     private List<Gold> golds; 
     private List<BotPlayer> botPlayers;
     private List<HumanPlayer> humanPlayers;
-    
-
-    
+     
     private EmptyFloor emptyFloor;//the only one  singular is emptyFloor because is just for the dimensions
+
+    private List<int[]> exits; // to store coordinates
+    private List<int[]> dots;
 
     public Board(){
          //we use new because we are not longer working with primitive variables
@@ -20,6 +21,9 @@ public class Board {
         this.golds = new ArrayList<>();
         this.botPlayers = new ArrayList<>();
         this.humanPlayers = new ArrayList<>();
+        this.exits = new ArrayList<>(); 
+        this.dots = new ArrayList<>();
+
     }
 
 
@@ -80,7 +84,13 @@ public class Board {
                         System.out.println("Wall created at: (" + x + ", " + y + ")");
                         break;
     
-                    case '.': // Empty floor 
+                    case 'E': // Exit
+                        exits.add(new int[]{x, y}); //store the coordinate
+                        System.out.println("Exit at: (" + x + ", " + y + ")");
+                        break;
+
+                    case '.': // Empty floor
+                        dots.add(new int[]{x, y}); // store the coordinate
                         System.out.println("Empty floor at: (" + x + ", " + y + ")");
                         break;
     
