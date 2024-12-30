@@ -41,12 +41,46 @@ public class Board {
 
 
 
+            for (int x = 0; x < boardWidth; x++) {
+                char currentChar = line.charAt(x); // Get the character at position x
+    
+                // Create objects based on the character
+                switch (currentChar) {
+                    case 'P': // Human Player
+                        humanPlayer = new HumanPlayer(x, y, 0); // Create a player object
+                        System.out.println("Human Player created at: (" + x + ", " + y + ")");
+                        break;
+    
+                    case 'B': // Bot Player
+                        botPlayer = new BotPlayer(x, y, 0); // Create a bot object
+                        System.out.println("Bot Player created at: (" + x + ", " + y + ")");
+                        break;
+    
+                    case 'G': // Gold
+                        Gold gold = new Gold(1, x, y); // Create a gold object with 1 unit
+                        System.out.println("Gold created at: (" + x + ", " + y + ")");
+                        break;
+    
+                    case '#': // Wall
+                        Wall wall = new Wall(1); 
+                        System.out.println("Wall created at: (" + x + ", " + y + ")");
+                        break;
+    
+                    case '.': // Empty floor 
+                        System.out.println("Empty floor at: (" + x + ", " + y + ")");
+                        break;
+    
+                    default:
+                        System.err.println("Unknown character '" + currentChar + "' at: (" + x + ", " + y + ")");
+                        break;
+
+
+                }
+            }
+
+
         }
     }
-
-
-
-
     public void LookGrid(){
 
     }
