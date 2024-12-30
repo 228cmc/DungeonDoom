@@ -1,3 +1,5 @@
+import java.io.FileReader;
+
 public class EmptyFloor { 
     int width;
     int height;
@@ -30,6 +32,8 @@ public class EmptyFloor {
 
     public  void getDimensions(String filePath){
         try{
+            FileReader fileReader; //create a variable type fileReader
+            fileReader = new FileReader("exampleBoard.txt");
 
         } catch(Exception e) {
             System.out.println("error");
