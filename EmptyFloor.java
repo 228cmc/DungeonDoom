@@ -37,7 +37,7 @@ public class EmptyFloor {
     public  void getDimensions(String filePath){
         try{
             FileReader fileReader; //create a variable type fileReader
-            fileReader = new FileReader("exampleBoard.txt"); //asigned the variable to the new object
+            fileReader = new FileReader("exampleBoard2.txt"); //asigned the variable to the new object
 
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
@@ -46,7 +46,7 @@ public class EmptyFloor {
             List<String> lines = new ArrayList<>();
 
             while((line = bufferedReader.readLine()) !=null) {
-                if (line.matches ("[PBGE.#]+.*")) {
+                if (line.matches (".*[PBGE.#]+.*")) {
                     lines.add(line);
 
                 }else { 
