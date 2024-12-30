@@ -29,7 +29,15 @@ public class EmptyFloor {
         this.height= height;
     }
 
-    public  void getDimensions(String filePath){
+    public  List<String>   getValidLines(String filePath){
+//method finds dimensions of the board and its valid lines
+
+
+        //inicialize line, lines, count for determining first line
+        String line; 
+        List<String> lines = new ArrayList<>();
+        int count =0;
+
         try{
             FileReader fileReader; //create a variable type fileReader
             fileReader = new FileReader("exampleBoard2.txt"); //asigned the variable to the new object
@@ -37,10 +45,7 @@ public class EmptyFloor {
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
 
-            //inicialize line, lines, count for determining first line
-            String line; 
-            List<String> lines = new ArrayList<>();
-            int count =0;
+
 
             while((line = bufferedReader.readLine()) !=null) {
 
@@ -64,6 +69,9 @@ public class EmptyFloor {
                 }
             }
 
+            this.height = lines.size(); //determine height
+            System.out.println("height " + this.height);
+
             System.out.println("Board");
 
             //print the whole board to check 
@@ -74,10 +82,17 @@ public class EmptyFloor {
             bufferedReader.close();
 
             System.out.println("exito");
+
         } catch(Exception e) {
             System.out.println("error");
         }
+
+        return lines; //return the lines that work
+
     }
+
+
+
 
     private boolean containsValidLetters(String line) {
         if (!line.matches("[PBGE.#]+")) {//the line has to have valid characters
