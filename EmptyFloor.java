@@ -25,4 +25,16 @@ public class EmptyFloor {
         this.height= height;
     }
 
+
+    
+
+    public  void getDimensions(String filePath){
+        try{
+
+        } catch(Exception e) {
+            System.out.println("error");
+        }
+    }
+
+
 }
