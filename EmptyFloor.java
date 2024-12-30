@@ -40,7 +40,7 @@ public class EmptyFloor {
 
         try{
             FileReader fileReader; //create a variable type fileReader
-            fileReader = new FileReader("exampleBoard2.txt"); //asigned the variable to the new object
+            fileReader = new FileReader(filePath); //asigned the variable to the new object
 
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
