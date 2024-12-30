@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
+import java.util.ArrayList;
+
 
 public class EmptyFloor { 
     int width;
@@ -38,6 +41,20 @@ public class EmptyFloor {
 
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(fileReader);
+
+
+            String line; //inicialize line
+            List<String> lines = new ArrayList<>();
+
+            while((line = bufferedReader.readLine()) !=null) {
+                if (line.matches ("[PBGE.#]+")) {
+                    lines.add(line);
+
+                }else { 
+                    System.out.println("error");
+                }
+            }
+
 
             bufferedReader.close();
 
