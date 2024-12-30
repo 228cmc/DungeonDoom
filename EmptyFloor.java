@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class EmptyFloor { 
@@ -33,8 +34,14 @@ public class EmptyFloor {
     public  void getDimensions(String filePath){
         try{
             FileReader fileReader; //create a variable type fileReader
-            fileReader = new FileReader("exampleBoard.txt");
+            fileReader = new FileReader("exampleBoard.txt"); //asigned the variable to the new object
 
+            BufferedReader bufferedReader;
+            bufferedReader = new BufferedReader(fileReader);
+
+            bufferedReader.close();
+
+            System.out.println("exito");
         } catch(Exception e) {
             System.out.println("error");
         }
