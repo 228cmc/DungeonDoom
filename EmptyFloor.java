@@ -46,7 +46,7 @@ public class EmptyFloor {
             List<String> lines = new ArrayList<>();
 
             while((line = bufferedReader.readLine()) !=null) {
-                if (line.matches ("[PBGE.#]+")) {
+                if (line.matches ("[PBGE.#]+.*")) {
                     lines.add(line);
 
                 }else { 
