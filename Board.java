@@ -4,19 +4,27 @@ import java.util.List;
 public class Board {
 
     //declare variables with objects defined in other java files
-    private  EmptyFloor emptyFloor; // Declare a variable named emptyFloor that will hold an object of type EmptyFloor
-    private  Wall wall; 
-    private  int titles;
-    private Gold gold; 
-    private BotPlayer botPlayer;
-    private HumanPlayer humanPlayer;
+    private List<Wall> walls; // List to save multiple wall
+    private List<Gold> golds; 
+    private List<BotPlayer> botPlayers;
+    private List<HumanPlayer> humanPlayers;
+    
+
+    
+    private EmptyFloor emptyFloor;//the only one  singular is emptyFloor because is just for the dimensions
 
     public Board(){
-        this.emptyFloor = new EmptyFloor(0,0); //we use new because we are not longer working with primitive variables
-        this.wall = new Wall(titles);  //
-        this.botPlayer = new BotPlayer(titles, titles, titles);
-        this.humanPlayer  = new HumanPlayer(titles, titles, titles);
+         //we use new because we are not longer working with primitive variables
+        this.emptyFloor = new EmptyFloor(0, 0);
+        this.walls = new ArrayList<>();
+        this.golds = new ArrayList<>();
+        this.botPlayers = new ArrayList<>();
+        this.humanPlayers = new ArrayList<>();
     }
+
+
+
+    
 
     public void initializeBoard(String filePath){ 
 
@@ -47,22 +55,26 @@ public class Board {
                 // Create objects based on the character
                 switch (currentChar) {
                     case 'P': // Human Player
-                        humanPlayer = new HumanPlayer(x, y, 0); // Create a player object
+                        HumanPlayer humanPlayer = new HumanPlayer(x, y, 0); // Create a player  object 0 because no gold yet has been collected
+                        humanPlayers.add(humanPlayer);  //add it to the  human list
                         System.out.println("Human Player created at: (" + x + ", " + y + ")");
                         break;
     
                     case 'B': // Bot Player
-                        botPlayer = new BotPlayer(x, y, 0); // Create a bot object
+                        BotPlayer botPlayer = new BotPlayer(x, y, 0); // Create a bot object
+                        botPlayers.add(botPlayer); //add it to the botPlayer list
                         System.out.println("Bot Player created at: (" + x + ", " + y + ")");
                         break;
     
                     case 'G': // Gold
-                        Gold gold = new Gold(1, x, y); // Create a gold object with 1 unit
+                        Gold gold = new Gold(1, x, y); //create a gold object with value 1 
+                        golds.add(gold); //add it to the gold list
                         System.out.println("Gold created at: (" + x + ", " + y + ")");
                         break;
     
                     case '#': // Wall
-                        Wall wall = new Wall(1); 
+                        Wall wall = new Wall(1);
+                        walls.add(wall);
                         System.out.println("Wall created at: (" + x + ", " + y + ")");
                         break;
     
