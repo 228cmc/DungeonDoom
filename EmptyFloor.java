@@ -55,7 +55,7 @@ public class EmptyFloor {
                 if (containsValidLetters(line)) {
                     count++;
                     if (count ==1){
-                        this.width= line.length();
+                        this.setWidth(line.length()); //set width 
                         System.out.println(this.width);
                     }
 
@@ -69,7 +69,7 @@ public class EmptyFloor {
                 }
             }
 
-            this.height = lines.size(); //determine height
+            this.setHeight(lines.size()); //determine height with setter
             System.out.println("height " + this.height);
 
             System.out.println("Board");
