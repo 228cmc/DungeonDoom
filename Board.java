@@ -266,20 +266,24 @@ public class Board {
         }
 
 
-        // update position
-        human.setPositionX(newX);
-        human.setPositionY(newY);   
+
         
         if (validLines.get(newY).charAt(newX) == '#') { //   check for walls
             System.out.println("Cant move there is a wall");
             return;
         }
         
-        // check if the new position contains gold
+
+        // update position
+        human.setPositionX(newX);
+        human.setPositionY(newY);   
+
+        // Check if there's gold at the new position
         if (validLines.get(newY).charAt(newX) == 'G') {
-            human.setGoldCollected(human.getGoldCollected() + 1); // increase gold count
-            System.out.println("good! you have now gold! total: " + human.getGoldCollected());
+            human.pickUpGold();  // Handle gold pickup
         }
+
+
 
         if (validLines.get(newY).charAt(newX) == 'E') {
             updateBoard(currentX, currentY); // update the board
@@ -287,10 +291,6 @@ public class Board {
         } else {
             System.out.println("You moved " + direction);
         }
-
-
-
-
         updateBoard(currentX, currentY);
 
         System.out.println("you moved " + direction);
