@@ -232,7 +232,7 @@ public class Board {
     public void processCommand(String command) {
         switch (command.toUpperCase()) {
             case "QUIT":
-                win(); // checks if the player wins, then calls quit
+                quit(); // checks if the player wins, then calls quit
                 break;
             case "LOOK":
                 lookBoard();
