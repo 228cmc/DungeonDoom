@@ -217,13 +217,11 @@ public class Board {
 
         for (int[] exit : exits) {
             if (exit[0] == x && exit[1] == y) {
-                System.out.println("Congratulations! You've exited the dungeon and won the game!");
+                System.out.println("congratulations! You've winn");
                 quit(); // call quit to end the game
                 return;
             }
         }
 
-        // if not on an Exit tile
-        System.out.println("You are not on an Exit tile. Keep playing or move to an Exit.");
     }
 }
