@@ -53,13 +53,18 @@ public class Board {
         }
         getPositions(validLines);
 
-        updateBoard();
 
         lookBoard();
 
         positionPlayers();
 
-        updateBoard();
+        // Update the board with the initial positions of players
+        for (HumanPlayer human : humanPlayers) {
+            updateBoard(human.getPositionX(), human.getPositionY());
+        }
+        for (BotPlayer bot : botPlayers) {
+            updateBoard(bot.getPositionX(), bot.getPositionY());
+        }
 
         lookBoard();
 
