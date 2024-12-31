@@ -263,14 +263,14 @@ public class Board {
         // check if the new position contains gold
         if (validLines.get(newY).charAt(newX) == 'G') {
             human.setGoldCollected(human.getGoldCollected() + 1); // increase gold count
-            System.out.println("You collected gold! Total: " + human.getGoldCollected());
+            System.out.println("good! you have now gold! total: " + human.getGoldCollected());
         }
 
         // update position
         human.setPositionX(newX);
         human.setPositionY(newY);
 
-        
+
         updateBoard();
         System.out.println("you moved " + direction);
     }
