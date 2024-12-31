@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random; // for assigning position of the player and bot
+
 
 public class Board {
 
@@ -14,6 +16,9 @@ public class Board {
     private List<int[]> exits; // to store coordinates
     private List<int[]> dots;
 
+    private List<String> validLines; 
+
+
     public Board(){
          //we use new because we are not longer working with primitive variables
         this.emptyFloor = new EmptyFloor(0, 0);
@@ -23,6 +28,8 @@ public class Board {
         this.humanPlayers = new ArrayList<>();
         this.exits = new ArrayList<>(); 
         this.dots = new ArrayList<>();
+        this.validLines = new ArrayList<>();
+
 
     }
 
@@ -32,13 +39,19 @@ public class Board {
 
     public void initializeBoard(String filePath){ 
 
-        List<String> lines = emptyFloor.getValidLines(filePath);
+        this.validLines = emptyFloor.getValidLines(filePath);
 
-        if (lines.isEmpty()) {
+        if (validLines.isEmpty()) {
             System.out.println("No valid lines where found");
             return;
         }
-        getPositions(lines);
+        getPositions(validLines);
+
+        LookBoard();
+
+        positionPlayers();
+
+        LookBoard();
 
     }
 
@@ -105,9 +118,60 @@ public class Board {
 
         }
     }
-    public void LookGrid(){
 
+
+    private void positionPlayers() {
+        Random random = new Random();
+    
+        // Validate if players are already positioned
+        if (!humanPlayers.isEmpty()) {
+            System.out.println("human player is already positioned");
+            return;
+        }
+        if (!botPlayers.isEmpty()) {
+            System.out.println("bot player is already positioned");
+            return;
+        }
+    
+        
+        List<int[]> validPositions = new ArrayList<>(dots); // Combine the  dots and exits to determine valid positions
+        validPositions.addAll(exits);
+    
+        
+    
+        // position the human player
+        int[] humanPos = validPositions.remove(random.nextInt(validPositions.size()));
+        HumanPlayer humanPlayer = new HumanPlayer(humanPos[0], humanPos[1], 0); // 0 since no gold collected yet
+        humanPlayers.add(humanPlayer);
+        System.out.println("Human player is at: (" + humanPos[0] + ", " + humanPos[1] + ")");
+    
+        // Check if there are still valid positions for the bot
+        if (validPositions.isEmpty()) {
+            System.out.println("No valid positions available for the bot.");
+            return;
+        }
+    
+        int[] botPos = validPositions.remove(random.nextInt(validPositions.size()));        //put the bot in a different location
+
+        BotPlayer botPlayer = new BotPlayer(botPos[0], botPos[1], 0);
+        botPlayers.add(botPlayer);
+        System.out.println("bot player is at: (" + botPos[0] + ", " + botPos[1] + ")");
     }
+    
+
+    public void LookBoard() {
+        if (validLines == null || validLines.isEmpty()) {
+            System.out.println("No  data available to show");
+            return;
+        }
+
+        System.out.println("current board:");
+        for (String line : validLines) {
+            System.out.println(line);
+        }
+    }
+
+
 
     public void quit() {
         
