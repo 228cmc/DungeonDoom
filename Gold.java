@@ -19,9 +19,7 @@ public class Gold {
         return goalGold;
     
     }
-    public int currentGold() {
-        return amount;
-    }
+
 
     public int addGold() {
         amount ++;
