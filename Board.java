@@ -238,7 +238,7 @@ public class Board {
                 lookBoard();
                 break;
                 case "HELLO":
-                System.out.println("Hello, welcome to the dungeon!");
+                System.out.println("hello, welcome to the dungeon!");
                 break;
                 
                 
