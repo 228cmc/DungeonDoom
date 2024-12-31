@@ -22,9 +22,15 @@ public class Main {
         String command; // declare clares a String variable named command to store the input provided by the user.
 
         System.out.println("type a command (QUIT, LOOK, MOVE, HELLO, GOLD) :");
-        while (true) {
-            command = scanner.nextLine();
-            board.processCommand(command);
+        try {
+            while (true) {
+                command = scanner.nextLine();
+                board.processCommand(command);
+            }}
+        finally {
+            scanner.close();
+
         }
+
     }
 }
