@@ -264,7 +264,11 @@ public class Board {
                 System.out.println("invalid direction");
                 return;
         }
-    
+
+
+        // update position
+        human.setPositionX(newX);
+        human.setPositionY(newY);   
         
         if (validLines.get(newY).charAt(newX) == '#') { //   check for walls
             System.out.println("Cant move there is a wall");
@@ -277,12 +281,18 @@ public class Board {
             System.out.println("good! you have now gold! total: " + human.getGoldCollected());
         }
 
-        // update position
-        human.setPositionX(newX);
-        human.setPositionY(newY);
+        if (validLines.get(newY).charAt(newX) == 'E') {
+            updateBoard(currentX, currentY); // update the board
+            win(); // call the win method
+        } else {
+            System.out.println("You moved " + direction);
+        }
+
+
 
 
         updateBoard(currentX, currentY);
+
         System.out.println("you moved " + direction);
     }
     
