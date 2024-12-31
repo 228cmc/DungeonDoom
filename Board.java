@@ -235,8 +235,10 @@ public class Board {
 
     private void processMove(String direction) {
         HumanPlayer human = humanPlayers.get(0);//get 1 humanplayer
-        int newX = human.getPositionX(); // initialize newX with the current X position
-        int newY = human.getPositionY();
+        int currentX = human.getPositionX(); // store current position
+        int currentY = human.getPositionY();
+        int newX = currentX; // initialize new position
+        int newY = currentY;
     
         switch (direction) { //acording to the case it moves
             case "NORTH": newY--; //decrease NewY value in 1 
@@ -254,13 +256,21 @@ public class Board {
     
         
         if (validLines.get(newY).charAt(newX) == '#') { //   check for walls
-            System.out.println("Cant move ther is a wall");
+            System.out.println("Cant move there is a wall");
             return;
         }
-    
+        
+        // check if the new position contains gold
+        if (validLines.get(newY).charAt(newX) == 'G') {
+            human.setGoldCollected(human.getGoldCollected() + 1); // increase gold count
+            System.out.println("You collected gold! Total: " + human.getGoldCollected());
+        }
+
         // update position
         human.setPositionX(newX);
         human.setPositionY(newY);
+
+        
         updateBoard();
         System.out.println("you moved " + direction);
     }
