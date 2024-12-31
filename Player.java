@@ -43,10 +43,10 @@ public void setGoldCollected(int goldCollected){
 
 
 //movement methods
-        public void moveRight(){ 
+        public void moveEast(){ 
                     }
                     
-        public void moveLeft(){ 
+        public void moveWest(){ 
 
         }
 
