@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random; // for assigning position of the player and bot
-
+import java.util.Scanner; // for movement
 
 public class Board {
 
@@ -19,6 +19,11 @@ public class Board {
     private List<String> validLines; 
 
 
+    private Scanner scanner;
+
+
+
+
     public Board(){
          //we use new because we are not longer working with primitive variables
         this.emptyFloor = new EmptyFloor(0, 0);
@@ -29,6 +34,7 @@ public class Board {
         this.exits = new ArrayList<>(); 
         this.dots = new ArrayList<>();
         this.validLines = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
 
 
     }
@@ -224,6 +230,7 @@ public class Board {
         }
 
     }
+
 
 
 
