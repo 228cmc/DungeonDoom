@@ -172,8 +172,14 @@ public class Board {
 
 
     }
-        private void updateBoard() {
-            
+        private void updateBoard(int oldX, int oldY) {
+       
+            // clear the old position by setting it to an empty floor
+            StringBuilder oldLine = new StringBuilder(validLines.get(oldY));
+            oldLine.setCharAt(oldX, '.'); // reset to empty floor
+            validLines.set(oldY, oldLine.toString());
+        
+        
             for (HumanPlayer humanPlayer : humanPlayers) { // iterate over human players 
                 StringBuilder line = new StringBuilder(validLines.get(humanPlayer.getPositionY()));
                 line.setCharAt(humanPlayer.getPositionX(), 'P'); //and update the board
