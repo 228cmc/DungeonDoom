@@ -211,7 +211,7 @@ public class Board {
 
     public void win() {
         // checks if the player is on an Exit tile and invokes quit if true
-        HumanPlayer humanPlayer = humanPlayers.get(0); // assumes single human player
+        HumanPlayer humanPlayer = humanPlayers.get(0); //  The humanPlayers list is used to store human player objects, but the method assumes that only the first player (index 0) is the active or relevant one.
         int x = humanPlayer.getPositionX();
         int y = humanPlayer.getPositionY();
 
