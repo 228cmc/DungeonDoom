@@ -26,8 +26,14 @@ public class Main {
             while (true) {
                 command = scanner.nextLine();
                 board.processCommand(command);
-            }}
-        finally {
+            }
+
+        } catch (Exception e) {
+            System.err.println("error  in  :  " + e.getMessage());
+            e.printStackTrace();
+
+            
+        }finally {
             scanner.close();
 
         }
