@@ -224,4 +224,39 @@ public class Board {
         }
 
     }
+
+
+
+
+
+    public void processCommand(String command) {
+        switch (command.toUpperCase()) {
+            case "QUIT":
+                win(); // checks if the player wins, then calls quit
+                break;
+            case "LOOK":
+                lookBoard();
+                break;
+                case "HELLO":
+                System.out.println("Hello, welcome to the dungeon!");
+                break;
+                
+                
+                //to work on 
+            case "MOVE":
+                System.out.println("w");
+                break;
+
+            case "GOLD":
+                System.out.println("w");
+                break;
+            default:
+                System.out.println("Unknown command. Please try again.");
+                break;
+        }
+    }
+    
+    
+
+
 }
