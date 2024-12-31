@@ -206,4 +206,24 @@ public class Board {
         System.out.println("you have exited the game. Bye");// general method to quit the game
         System.exit(0); 
     }
+
+
+
+    public void win() {
+        // checks if the player is on an Exit tile and invokes quit if true
+        HumanPlayer humanPlayer = humanPlayers.get(0); // assumes single human player
+        int x = humanPlayer.getPositionX();
+        int y = humanPlayer.getPositionY();
+
+        for (int[] exit : exits) {
+            if (exit[0] == x && exit[1] == y) {
+                System.out.println("Congratulations! You've exited the dungeon and won the game!");
+                quit(); // call quit to end the game
+                return;
+            }
+        }
+
+        // if not on an Exit tile
+        System.out.println("You are not on an Exit tile. Keep playing or move to an Exit.");
+    }
 }
