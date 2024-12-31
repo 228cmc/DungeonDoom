@@ -1,10 +1,11 @@
 public class Gold {
-    private int amount;
+    private int amount; // current amount of gold collected by the player
+    private static final int goalGold = 5; // total gold required to win (constant)
     private int positionX;
     private int positionY;
 
 
-    public  Gold (int amount, int positionX, int positionY) {
+    public  Gold (int amount,  int positionX, int positionY) {
         this.amount = amount;
         this.positionX = positionX;
         this.positionY = positionY;
@@ -15,7 +16,7 @@ public class Gold {
 
     public int  requiredGold(){ 
     //triggered with hello 
-        return  amount;
+        return goalGold;
     
     }
     public int currentGold() {
