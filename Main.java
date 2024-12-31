@@ -1,42 +1,46 @@
 import java.util.Scanner;
 
 public class Main { 
-    public static void main (String[] args) {  
+    public static void main(String[] args) {  
         String filePath;
-        Scanner scanner = new Scanner(System.in);// create a Scanner object that allows capturing user input from the console
+        Scanner fileScanner = new Scanner(System.in); // scanner for file path
+        Scanner commandScanner = null; // scanner for game commands
 
-
-        if (args.length < 1) {
-            System.out.println("No file path given,  please type the path:");
-            filePath = scanner.nextLine();
-        } else {
-            filePath = args[0];
-        }
-
-        
-        Board board = new Board(); // initialize the board
-        board.initializeBoard(filePath);
-
-
-        
-        String command; // declare clares a String variable named command to store the input provided by the user.
-
-        System.out.println("type a command (QUIT, LOOK, MOVE, HELLO, GOLD) :");
         try {
-            while (true) {
-                command = scanner.nextLine();
-                board.processCommand(command);
+            // get file path
+            if (args.length < 1) {
+                System.out.println("No file path given, please type the path:");
+                filePath = fileScanner.nextLine();
+            } else {
+                filePath = args[0];
             }
 
-        } catch (Exception e) {
-            System.err.println("error  in  :  " + e.getMessage());
-            e.printStackTrace();
+            
+            Board board = new Board();// initialize the board
+            board.initializeBoard(filePath);
 
             
-        }finally {
-            scanner.close();
+            commandScanner = new Scanner(System.in); // initialize scanner for commands
+            String command;
 
+            System.out.println("Type a command (QUIT, LOOK, MOVE, HELLO, GOLD):");
+            while (true) {
+                System.out.print("> ");
+                command = commandScanner.nextLine();
+                board.processCommand(command);
+            }
+        } catch (Exception e) {
+            System.err.println("Error occurred: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // close scanners
+            if (fileScanner != null) {
+                fileScanner.close();
+            }
+            if (commandScanner != null) {
+                commandScanner.close();
+            }
         }
-
     }
 }
+
