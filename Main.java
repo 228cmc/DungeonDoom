@@ -25,7 +25,7 @@ public class Main {
 
             System.out.println("Type a command (QUIT, LOOK, MOVE, HELLO, GOLD):");
             while (true) {
-                System.out.print("> ");
+                System.out.print("enter your action: ");
                 command = commandScanner.nextLine();
                 board.processCommand(command);
             }
