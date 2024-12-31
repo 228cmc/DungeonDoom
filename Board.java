@@ -244,6 +244,11 @@ public class Board {
                 
                 //to work on 
             case "MOVE":
+                System.out.print("Direction (NORTH, SOUTH, EAST, WEST): "); //explain the instructions of the movements
+                String direction = scanner.nextLine().toUpperCase();
+                processMove(direction); // process the movement
+
+
                 System.out.println("w");
                 break;
 
