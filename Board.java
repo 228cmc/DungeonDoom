@@ -282,7 +282,7 @@ public class Board {
         human.setPositionY(newY);
 
 
-        updateBoard();
+        updateBoard(currentX, currentY);
         System.out.println("you moved " + direction);
     }
     
