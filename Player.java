@@ -32,7 +32,7 @@ public void setPositionY(int positionY){
 }
 
 
-public int getGoldCollecter(){
+public int getGoldCollected(){
     return goldCollected;
 }
 
@@ -43,18 +43,22 @@ public void setGoldCollected(int goldCollected){
 
 
 //movement methods
-        public void moveEast(){ 
-                    }
-                    
-        public void moveWest(){ 
+        public void moveEast() {
+            this.setPositionX(this.getPositionX() + 1);
+        }
+                            
 
+                    
+        public void moveWest() {
+            this.setPositionX(this.getPositionX() - 1);
         }
 
-        public void moveNorth(){ 
-
-                    }
+        public void moveNorth() {
+            this.setPositionY(this.getPositionY() - 1);
+        }
                     
-        public void moveSouth(){ 
+        public void moveSouth() {
+            this.setPositionY(this.getPositionY() + 1);
         }
 
 
