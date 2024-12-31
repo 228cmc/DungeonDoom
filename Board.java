@@ -231,6 +231,45 @@ public class Board {
 
     }
 
+  
+
+    private void processMove(String direction) {
+        HumanPlayer human = humanPlayers.get(0);//get 1 humanplayer
+        int newX = human.getPositionX(); // initialize newX with the current X position
+        int newY = human.getPositionY();
+    
+        switch (direction) { //acording to the case it moves
+            case "NORTH": newY--; //decrease NewY value in 1 
+             break;
+            case "SOUTH": newY++;  //increase the 
+            break;
+            case "EAST": newX++;
+             break;
+            case "WEST": newX--; 
+            break;
+            default:
+                System.out.println("invalid direction");
+                return;
+        }
+    
+        
+        if (validLines.get(newY).charAt(newX) == '#') { //   check for walls
+            System.out.println("Cant move ther is a wall");
+            return;
+        }
+    
+        // update position
+        human.setPositionX(newX);
+        human.setPositionY(newY);
+        updateBoard();
+        System.out.println("you moved " + direction);
+    }
+    
+
+
+
+
+  
 
 
 
