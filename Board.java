@@ -47,11 +47,15 @@ public class Board {
         }
         getPositions(validLines);
 
-        LookBoard();
+        updateBoard();
+
+        lookBoard();
 
         positionPlayers();
 
-        LookBoard();
+        updateBoard();
+
+        lookBoard();
 
     }
 
@@ -156,10 +160,35 @@ public class Board {
         BotPlayer botPlayer = new BotPlayer(botPos[0], botPos[1], 0);
         botPlayers.add(botPlayer);
         System.out.println("bot player is at: (" + botPos[0] + ", " + botPos[1] + ")");
+
+
+
+
+
     }
+        private void updateBoard() {
+            
+            for (HumanPlayer humanPlayer : humanPlayers) { // iterate over human players 
+                StringBuilder line = new StringBuilder(validLines.get(humanPlayer.getPositionY()));
+                line.setCharAt(humanPlayer.getPositionX(), 'P'); //and update the board
+                validLines.set(humanPlayer.getPositionY(), line.toString());
+            }
+        
+            // iterate over bot players and update the board
+            for (BotPlayer botPlayer : botPlayers) {
+                StringBuilder line = new StringBuilder(validLines.get(botPlayer.getPositionY()));
+                line.setCharAt(botPlayer.getPositionX(), 'B');
+                validLines.set(botPlayer.getPositionY(), line.toString());
+            }
+        }
+        
     
 
-    public void LookBoard() {
+
+
+
+
+    public void lookBoard() {
         if (validLines == null || validLines.isEmpty()) {
             System.out.println("No  data available to show");
             return;
@@ -174,6 +203,7 @@ public class Board {
 
 
     public void quit() {
-        
+        System.out.println("you have exited the game. Bye");// general method to quit the game
+        System.exit(0); 
     }
 }
