@@ -71,17 +71,8 @@ public class EmptyFloor {
 
             this.setHeight(lines.size()); //determine height with setter
             System.out.println("height " + this.height);
-
-            System.out.println("Board");
-
-            //print the whole board to check 
-            for (String l:lines) {
-                System.out.println(l);
-            }
-
             bufferedReader.close();
 
-            System.out.println("exito");
 
         } catch(Exception e) {
             System.out.println("error");
