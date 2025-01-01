@@ -231,6 +231,13 @@ public class Board {
         botLine = new StringBuilder(validLines.get(bot.getPositionY()));
         botLine.setCharAt(bot.getPositionX(), 'B');
         validLines.set(bot.getPositionY(), botLine.toString());
+
+
+        // check if the bot caught the human
+        lose();
+
+
+
     }
 
     private void processCollection(Player player) {
@@ -307,5 +314,15 @@ public class Board {
     
         System.exit(0);
     }
+
+
+    public void lose() {
+        // check if the bot's position is the same as the human's position
+        if (bot.getPositionX() == human.getPositionX() && bot.getPositionY() == human.getPositionY()) {
+            System.out.println("you lost! the bot caught you!"); // inform the player they lost
+            System.exit(0); // terminate the game
+        }
+    }
+    
     
 }
