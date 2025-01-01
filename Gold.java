@@ -14,7 +14,7 @@ public class Gold {
 
 
 
-    public int  requiredGold(){ 
+    public static int  requiredGold(){  // is tied to the concept of "total gold required to win,"therefore is static, as this value does not vary between instances.
     //triggered with hello 
         return goalGold;
     
