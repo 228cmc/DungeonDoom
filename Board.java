@@ -60,10 +60,10 @@ public class Board {
 
         // Update the board with the initial positions of players
         for (HumanPlayer human : humanPlayers) {
-            updateBoard(human.getPositionX(), human.getPositionY());
+            updateBoard(human, 'P');
         }
         for (BotPlayer bot : botPlayers) {
-            updateBoard(bot.getPositionX(), bot.getPositionY());
+            updateBoard(bot, 'B');
         }
 
         lookBoard();
@@ -177,32 +177,18 @@ public class Board {
 
 
     }
-        private void updateBoard(int oldX, int oldY) {
-       
-            // clear the old position by setting it to an empty floor
-            StringBuilder oldLine = new StringBuilder(validLines.get(oldY));
-            oldLine.setCharAt(oldX, '.'); // reset to empty floor
-            validLines.set(oldY, oldLine.toString());
-        
-        
-            for (HumanPlayer humanPlayer : humanPlayers) { // iterate over human players 
-                StringBuilder line = new StringBuilder(validLines.get(humanPlayer.getPositionY()));
-                line.setCharAt(humanPlayer.getPositionX(), 'P'); //and update the board
-                validLines.set(humanPlayer.getPositionY(), line.toString());
-            }
-        
-            // iterate over bot players and update the board
-            for (BotPlayer botPlayer : botPlayers) {
-                StringBuilder line = new StringBuilder(validLines.get(botPlayer.getPositionY()));
-                line.setCharAt(botPlayer.getPositionX(), 'B');
-                validLines.set(botPlayer.getPositionY(), line.toString());
-            }
-        }
-        
-    
+      
 
 
-
+    private void updateBoard(Player player, char newChar) {
+        int x = player.getPositionX();
+        int y = player.getPositionY();
+        
+        // modifies the board to update player position
+        StringBuilder line = new StringBuilder(validLines.get(y));
+        line.setCharAt(x, newChar); // update with the new character
+        validLines.set(y, line.toString());
+    }
 
 
     public void lookBoard() {
@@ -242,62 +228,75 @@ public class Board {
 
     }
 
-  
+
+
 
     private void processMove(String direction) {
-        HumanPlayer human = humanPlayers.get(0);//get 1 humanplayer
-        int currentX = human.getPositionX(); // store current position
-        int currentY = human.getPositionY();
-        int newX = currentX; // initialize new position
-        int newY = currentY;
+        HumanPlayer human = humanPlayers.get(0); // get the human player
+        BotPlayer bot = botPlayers.get(0); // get the bot player
     
-        switch (direction) { //acording to the case it moves
-            case "NORTH": newY--; //decrease NewY value in 1 
-             break;
-            case "SOUTH": newY++;  //increase the 
-            break;
-            case "EAST": newX++;
-             break;
-            case "WEST": newX--; 
-            break;
+        // clear the human's previous position
+        updateBoard(human, '.'); 
+    
+        // determine new position based on direction
+        switch (direction) { 
+            case "NORTH":
+                human.moveNorth();
+                break;
+            case "SOUTH":
+                human.moveSouth();
+                break;
+            case "EAST":
+                human.moveEast();
+                break;
+            case "WEST":
+                human.moveWest();
+                break;
             default:
-                System.out.println("invalid direction");
+                System.out.println("Invalid direction");
+                updateBoard(human, 'P'); // restore the player's position if invalid direction
                 return;
         }
-
-
-
-        
-        if (validLines.get(newY).charAt(newX) == '#') { //   check for walls
-            System.out.println("Cant move there is a wall");
+    
+        // check if the new position is valid (not a wall)
+        int humanNewX = human.getPositionX();
+        int humanNewY = human.getPositionY();
+        if (validLines.get(humanNewY).charAt(humanNewX) == '#') { 
+            System.out.println("You can't move, there's a wall.");
+            updateBoard(human, 'P'); // restore the original position
             return;
         }
-        
-
-        // update position
-        human.setPositionX(newX);
-        human.setPositionY(newY);   
-
-        // Check if there's gold at the new position
-        if (validLines.get(newY).charAt(newX) == 'G') {
-            human.pickUpGold();  // Handle gold pickup
-        }
-
-
-
-        if (validLines.get(newY).charAt(newX) == 'E') {
-            updateBoard(currentX, currentY); // update the board
-            win(); // call the win method
-        } else {
-            System.out.println("You moved " + direction);
-        }
-        updateBoard(currentX, currentY);
-
-        System.out.println("you moved " + direction);
+    
+        // update the human's position on the board
+        updateBoard(human, 'P'); 
+        System.out.println("You moved " + direction);
+    
+        // handle bot movement
+        updateBoard(bot, '.'); 
+        bot.chaseHuman(human, validLines); // move the bot towards the human
+        updateBoard(bot, 'B'); // update the bot's new position
     }
     
-
-
+    private void processCollection(Player player) {
+        int x = player.getPositionX();
+        int y = player.getPositionY();
+    
+        char tile = validLines.get(y).charAt(x);
+    
+        if (tile == 'G') {
+            if (player instanceof HumanPlayer) {
+                System.out.println("Human picks up gold!");
+            } else if (player instanceof BotPlayer) {
+                System.out.println("Bot picks up gold!");
+            }
+            player.pickUpGold(); // increment gold count
+            updateBoard(player, '.'); // clear the gold from the board
+        } else if (tile == 'E' && player instanceof HumanPlayer) {
+            System.out.println("You reached the exit!");
+            win();
+        }
+    }
+    
 
 
   
@@ -307,6 +306,8 @@ public class Board {
 
 
     public void processCommand(String command) {
+        HumanPlayer human = humanPlayers.get(0);
+
         switch (command.toUpperCase()) {
             case "QUIT":
                 quit(); // checks if the player wins, then calls quit
@@ -327,6 +328,10 @@ public class Board {
 
 
                 break;
+            case "PICKUP":
+                processCollection(human); // explicitly pick up items
+                break;
+
 
             case "GOLD":
                 System.out.println("w");
