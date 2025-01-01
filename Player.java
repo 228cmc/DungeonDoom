@@ -42,6 +42,18 @@ public void setGoldCollected(int goldCollected){
 
 
 
+public void pickUpGold() {
+
+           
+    this.setGoldCollected(this.getGoldCollected() + 1); // increment the player's collected gold
+
+
+
+    System.out.println("Success! You have now gold! Total: " + this.getGoldCollected());
+}
+
+
+
 //movement methods
         public void moveEast() {
             this.setPositionX(this.getPositionX() + 1);
