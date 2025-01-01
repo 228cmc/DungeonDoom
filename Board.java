@@ -65,7 +65,6 @@ public class Board {
         for (BotPlayer bot : botPlayers) {
             updateBoard(bot, 'B');
         }
-
         lookBoard();
 
     }
@@ -219,7 +218,7 @@ public class Board {
         int y = humanPlayer.getPositionY();
 
         for (int[] exit : exits) {
-            if (exit[0] == x && exit[1] == y) {
+            if (exit[0] == x && exit[1] == y) { 
                 System.out.println("congratulations! You've winn");
                 quit(); // call quit to end the game
                 return;
@@ -277,32 +276,39 @@ public class Board {
         updateBoard(bot, 'B'); // update the bot's new position
     }
     
+
     private void processCollection(Player player) {
-        int x = player.getPositionX();
-        int y = player.getPositionY();
+        int x = player.getPositionX(); // get the player's current X position
+        int y = player.getPositionY(); // get the player's current Y position
     
-        char tile = validLines.get(y).charAt(x);
-    
-        if (tile == 'G') {
-            if (player instanceof HumanPlayer) {
-                System.out.println("Human picks up gold!");
-            } else if (player instanceof BotPlayer) {
-                System.out.println("Bot picks up gold!");
+        // search for gold at the current position
+        Gold goldToCollect = null;
+        for (Gold gold : golds) {
+            // check if the gold's position matches the player's position
+            if (gold.getPositionX() == x && gold.getPositionY() == y) {
+                goldToCollect = gold; // store the gold to collect
+                break; // stop searching as we found the gold
             }
-            player.pickUpGold(); // increment gold count
-            updateBoard(player, '.'); // clear the gold from the board
-        } else if (tile == 'E' && player instanceof HumanPlayer) {
-            System.out.println("You reached the exit!");
-            win();
+        }
+    
+        // if there is gold to collect, handle collection
+        if (goldToCollect != null) {
+            player.pickUpGold(); // increment the player's gold count
+            golds.remove(goldToCollect); // remove the gold from the list
+            updateBoard(player, 'P'); // update the board to remove the gold
+            System.out.println("sucess! Current total: " + player.getGoldCollected());
+        } 
+        // check if the player is at an exit
+        else if (validLines.get(y).charAt(x) == 'E' && player instanceof HumanPlayer) {
+            System.out.println("You reached the exit!"); // inform the player they reached the exit
+            win(); // call the win method to end the game
+        } 
+        // if there's nothing to collect
+        else {
+            System.out.println("fail, nothing to collect."); // inform the player that the cell is empty
         }
     }
     
-
-
-  
-
-
-
 
 
     public void processCommand(String command) {
