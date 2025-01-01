@@ -23,7 +23,7 @@ public class Main {
             commandScanner = new Scanner(System.in); // initialize scanner for commands
             String command;
 
-            System.out.println("Type a command (QUIT, LOOK, MOVE, HELLO, GOLD):");
+            System.out.println("Type a command (QUIT, LOOK, MOVE, HELLO, PICKUP, GOLD):");
             while (true) {
                 System.out.print("enter your action: ");
                 command = commandScanner.nextLine();
