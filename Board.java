@@ -330,7 +330,7 @@ public class Board {
 
             case "GOLD":
                 System.out.println("w");
-                //System.out.println("Gold owned: " + Gold.getAmount());
+                System.out.println("Gold owned: " + humanPlayers.get(0).getGoldCollected());
                 break;
             default:
                 System.out.println("Unknown command. Please try again.");
