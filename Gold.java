@@ -21,19 +21,6 @@ public class Gold {
     }
 
 
-    public int addGold() {
-        amount ++;
-        return amount;
-    }
-
-    public int eliminateGold() {
-        amount --;
-        return amount;
-    }
-
-
-
-
 
 
 //setters for the variables 
