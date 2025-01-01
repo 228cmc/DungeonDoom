@@ -210,22 +210,29 @@ public class Board {
     }
 
 
-
     public void win() {
-        // checks if the player is on an Exit tile and invokes quit if true
-        HumanPlayer humanPlayer = humanPlayers.get(0); //  The humanPlayers list is used to store human player objects, but the method assumes that only the first player (index 0) is the active or relevant one.
+        HumanPlayer humanPlayer = humanPlayers.get(0); // The humanPlayers list is used to store human player objects, but the method assumes that only the first player (index 0) is the active or relevant one.
         int x = humanPlayer.getPositionX();
         int y = humanPlayer.getPositionY();
-
-        for (int[] exit : exits) {
-            if (exit[0] == x && exit[1] == y) { 
-                System.out.println("congratulations! You've winn");
-                quit(); // call quit to end the game
-                return;
+    
+        // check if the human player has collected enough gold to win
+        if (humanPlayer.getGoldCollected() >= Gold.requiredGold()) {
+            // check if the player is on an Exit tile
+            for (int[] exit : exits) {
+                if (exit[0] == x && exit[1] == y) {
+                    System.out.println("congratulations! You've collected enough gold and reached the exit. You win!");
+                    quit(); // call quit to end the game
+                    return;
+                }
             }
+            // player has enough gold but is not on an exit
+            System.out.println("you have collected enough gold, but you need to reach an exit to win");
+        } else {
+            // player doesn't have enough gold yet
+            System.out.println("you need to collect more gold before you can win");
         }
-
     }
+    
 
 
 
