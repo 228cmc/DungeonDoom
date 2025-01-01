@@ -315,8 +315,8 @@ public class Board {
                 lookBoard();
                 break;
                 case "HELLO":
-                System.out.println("hello, welcome to the dungeon!");
-                break;
+                 System.out.println("Gold to win: " + Gold.requiredGold());
+                 break;
                 
                 
                 //to work on 
@@ -326,11 +326,11 @@ public class Board {
                 processMove(direction); // process the movement
 
 
-                System.out.println("w");
                 break;
 
             case "GOLD":
                 System.out.println("w");
+                //System.out.println("Gold owned: " + Gold.getAmount());
                 break;
             default:
                 System.out.println("Unknown command. Please try again.");
