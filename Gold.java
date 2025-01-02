@@ -1,6 +1,6 @@
 public class Gold {
     private int amount; // current amount of gold collected by the player
-    private static final int goalGold = 5; // total gold required to win (constant)
+    private static final int goalGold = 2; // total gold required to win (constant)
     private int positionX;
     private int positionY;
 

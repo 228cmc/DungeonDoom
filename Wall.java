@@ -6,7 +6,7 @@ public class Wall {
         this.numeral = numeral;
     }
     public int  addNumeral() { 
-        numeral++; // Incrementa numeral
+        numeral++; // increase numeral
 
         return numeral;
     }

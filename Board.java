@@ -41,34 +41,34 @@ public class Board {
             for (int x = 0; x < boardWidth; x++) {
                 char currentChar = line.charAt(x); // Get the character at position x
     
-                // Create objects based on the character
+                // create objects based on the character
                 switch (currentChar) {
                     case 'P': // Human Player
-                        // Create and add a human player at this position
+                        // create and add a human player at this position
                         HumanPlayer humanPlayer = new HumanPlayer(x, y, 0);
                         humanPlayers.add(humanPlayer);
                         break;
                     case 'B': // Bot Player
-                        // Create and add a bot player at this position
+                        // create and add a bot player at this position
                         BotPlayer botPlayer = new BotPlayer(x, y, 0); // Create a bot object
                         botPlayers.add(botPlayer); //add it to the botPlayer list
                         break;
-                    case 'G': // Gold
-                        // Create and add gold at this position
+                    case 'G': // gold
+                        // create and add gold at this position
                         Gold gold = new Gold(1, x, y);  //create a gold object with value 1 
                         golds.add(gold); //add it to the gold list
                         break;
                     case '#':  // Wall
-                        // Add a wall object
+                        // add a wall object
                         Wall wall = new Wall(1);
                         walls.add(wall);
                         break;
                     case 'E': // Exit
-                        // Store exit coordinates
+                        // store exit coordinates
                         exits.add(new int[]{x, y});
                         break;
                     case '.': // Empty floor
-                        // Store empty floor coordinates
+                        // store empty floor coordinates
                         dots.add(new int[]{x, y}); // store the coordinate
                         break;
                     default:
@@ -116,39 +116,38 @@ public class Board {
     
 
     private void updateBoard(Player player, char newChar) {
-        int x = player.getPositionX(); // Obtiene la posición X del jugador
-        int y = player.getPositionY(); // Obtiene la posición Y del jugador
-    
+        int x = player.getPositionX(); // get the player's X position
+        int y = player.getPositionY(); // same for the the player's y position
         // Actualiza el carácter en la posición especificada
         StringBuilder line = new StringBuilder(validLines.get(y));
-        line.setCharAt(x, newChar); // Reemplaza el carácter en la posición
-        validLines.set(y, line.toString()); // Actualiza la línea en el tablero
+        line.setCharAt(x, newChar); // replaces character at position
+        validLines.set(y, line.toString()); //  update the line on the dashboard
     }
     
     private void positionPlayers() {
         Random random = new Random();
     
-        // Combine valid positions from dots and exits
+        // combine valid positions from dots and exits
         List<int[]> validPositions = new ArrayList<>(dots);
         validPositions.addAll(exits);
     
-        // Assign a random position to the human player
+        // assign a random position to the human player
         int[] humanPos = validPositions.remove(random.nextInt(validPositions.size()));
         HumanPlayer humanPlayer = new HumanPlayer(humanPos[0], humanPos[1], 0);
         humanPlayers.add(humanPlayer);
     
-        // Check if there are still valid positions for the bot
+        // check if there are still valid positions for the bot
         if (validPositions.isEmpty()) {
             System.out.println("No valid positions available for the bot.");
             return;
         }
     
-        // Assign a random position to the bot player
+        // assign a random position to the bot player
         int[] botPos = validPositions.remove(random.nextInt(validPositions.size()));
         BotPlayer botPlayer = new BotPlayer(botPos[0], botPos[1], 0);
         botPlayers.add(botPlayer);
     
-        // Assign references to global variables (optional, as this will be set in initializeBoard)
+        // assign references to global variables (optional, as this will be set in initializeBoard)
         this.human = humanPlayer;
         this.bot = botPlayer;
     }
@@ -265,21 +264,21 @@ public class Board {
         // Move the bot
         StringBuilder botLine = new StringBuilder(validLines.get(bot.getPositionY()));
 
-        // Check if the bot is leaving a position with gold
+        // check if the bot is leaving a position with gold
         if (golds.stream().anyMatch(g -> g.getPositionX() == bot.getPositionX() && g.getPositionY() == bot.getPositionY())) {
-            // Restore gold at the bot's previous position
+            // restore gold at the bot's previous position
             botLine.setCharAt(bot.getPositionX(), 'G');
         } else {
-            // Clear the bot's previous position
+            // clear the bot's previous position
             botLine.setCharAt(bot.getPositionX(), '.');
         }
         validLines.set(bot.getPositionY(), botLine.toString());
 
-        bot.chaseHuman(human, validLines);   // Move the bot closer to the human
+        bot.chaseHuman(human, validLines);   // move the bot closer to the human
 
-        // Update the board with the bot's new position
+        // update the board with the bot's new position
         botLine = new StringBuilder(validLines.get(bot.getPositionY()));
-        botLine.setCharAt(bot.getPositionX(), 'B');  // Place 'B' for the bot
+        botLine.setCharAt(bot.getPositionX(), 'B');  // place 'B' for the bot
         validLines.set(bot.getPositionY(), botLine.toString());
 
     
@@ -348,7 +347,7 @@ public class Board {
     public void quit() {
         boolean isOnExit = false;
     
-        // Verificar si el humano está en una salida
+        // verificar si el humano está en una salida
         for (int[] exit : exits) {
             if (exit[0] == human.getPositionX() && exit[1] == human.getPositionY()) {
                 isOnExit = true;
