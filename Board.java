@@ -174,7 +174,7 @@ public class Board {
                 System.out.println("Gold owned: " + human.getGoldCollected());
                 break;
                 case "HELLO":
-                System.out.println("You need " + Gold.requiredGold() + " gold to win.");
+                System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");
                 break;
             default:
                 System.out.println("Unknown command. Please try again.");
@@ -208,7 +208,7 @@ public class Board {
     
         // check if the new position is valid (not a wall)
         if (validLines.get(human.getPositionY()).charAt(human.getPositionX()) == '#') {
-            System.out.println("you can't move, there's a wall.");  // inform user
+            System.out.println("Fail!, you can't move, there's a wall.");  // inform user
             // revert to original position if movement is invalid
             human.setPositionX(currentX);
             human.setPositionY(currentY);
@@ -231,19 +231,34 @@ public class Board {
         line.setCharAt(human.getPositionX(), 'P');    // place 'P' for the player
         validLines.set(human.getPositionY(), line.toString());
     
-        System.out.println("you moved " + direction); // inform the user of the movement
+        System.out.println(" Sucess! you moved " + direction); // inform the user of the movement
     
-        // move the bot
+
+
+
+
+
+
+        // Move the bot
         StringBuilder botLine = new StringBuilder(validLines.get(bot.getPositionY()));
-        botLine.setCharAt(bot.getPositionX(), '.');   // clear the bot's previous position
+
+        // Check if the bot is leaving a position with gold
+        if (golds.stream().anyMatch(g -> g.getPositionX() == bot.getPositionX() && g.getPositionY() == bot.getPositionY())) {
+            // Restore gold at the bot's previous position
+            botLine.setCharAt(bot.getPositionX(), 'G');
+        } else {
+            // Clear the bot's previous position
+            botLine.setCharAt(bot.getPositionX(), '.');
+        }
         validLines.set(bot.getPositionY(), botLine.toString());
-    
-        bot.chaseHuman(human, validLines);   // move the bot closer to the human
-    
-        // update the board with the bot's new position
+
+        bot.chaseHuman(human, validLines);   // Move the bot closer to the human
+
+        // Update the board with the bot's new position
         botLine = new StringBuilder(validLines.get(bot.getPositionY()));
-        botLine.setCharAt(bot.getPositionX(), 'B');  // place 'B' for the bot
+        botLine.setCharAt(bot.getPositionX(), 'B');  // Place 'B' for the bot
         validLines.set(bot.getPositionY(), botLine.toString());
+
     
         // check if the bot caught the human
         lose();
