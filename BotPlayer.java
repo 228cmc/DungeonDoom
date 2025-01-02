@@ -49,7 +49,7 @@ public class BotPlayer extends Player {
             }
         }
     
-        System.out.println("Bot cant move due to obstacles.");
+        //System.out.println("Bot cant move due to obstacles.");
     }
     
 
