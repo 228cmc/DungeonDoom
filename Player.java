@@ -12,7 +12,7 @@ public abstract class Player {
 
     }
 
-//getters and setters for all the variables
+// getters and setters for all the variables
 
 public int getPositionX() {
     return positionX;
@@ -65,9 +65,11 @@ public void pickUpGold() {
             this.setPositionX(this.getPositionX() - 1);
         }
 
+
         public void moveNorth() {
             this.setPositionY(this.getPositionY() - 1);
         }
+        
                     
         public void moveSouth() {
             this.setPositionY(this.getPositionY() + 1);

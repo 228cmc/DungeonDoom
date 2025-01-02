@@ -33,13 +33,13 @@ public class EmptyFloor {
 //method finds dimensions of the board and its valid lines
 
 
-        //inicialize line, lines, count for determining first line
+        // inicialize line, lines, count for determining first line
         String line; 
         List<String> lines = new ArrayList<>();
         int count =0;
 
         try{
-            FileReader fileReader; //create a variable type fileReader
+            FileReader fileReader; // create a variable type fileReader
             fileReader = new FileReader(filePath); //asigned the variable to the new object
 
             BufferedReader bufferedReader;
@@ -51,7 +51,7 @@ public class EmptyFloor {
 
                 line = line.trim();//allow spaces at the beginning and end
 
-                // first validation
+                //first validation
                 if (containsValidLetters(line)) {
                     count++;
                     if (count ==1){

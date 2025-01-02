@@ -33,9 +33,10 @@ public class BotPlayer extends Player {
         }
     
         // prioritize movement in the y-direction next
+
         if (botY != humanY) { //   if bot and human y-coordinates are different
             if (humanY > botY) {
-                //     check if moving south is valid
+                //  check if moving south is valid
                 if (validLines.get(botY + 1).charAt(botX) != '#') {
                     this.moveSouth();
                     return;

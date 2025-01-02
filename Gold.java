@@ -23,7 +23,7 @@ public class Gold {
 
 
 
-//setters for the variables 
+// setters for the variables 
 
 
 public int getPositionX() {
