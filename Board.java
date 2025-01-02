@@ -79,17 +79,41 @@ public class Board {
         }
     }
 
-    public void lookBoard() {
+    public void lookBoard5X5() {
         if (validLines == null || validLines.isEmpty()) {
-            System.out.println("No data available to show");
+            System.out.println("no data available to show");
             return;
         }
     
-        System.out.println("Current board:");
-        for (String line : validLines) {
+        int playerX = human.getPositionX();
+        int playerY = human.getPositionY();
+    
+        // grid size and center offset
+        int gridSize = 5;
+        int halfGrid = gridSize / 2;
+    
+        System.out.println("current view (5x5):");
+    
+        // iterate over the rows of the grid
+        for (int y = playerY - halfGrid; y <= playerY + halfGrid; y++) {
+            StringBuilder line = new StringBuilder();
+    
+            // iterate over the columns of the grid
+            for (int x = playerX - halfGrid; x <= playerX + halfGrid; x++) {
+                // add '#' for out-of-bound positions
+                if (y < 0 || y >= validLines.size() || x < 0 || x >= validLines.get(y).length()) {
+                    line.append('#');
+                } else {
+                    // add character from the map
+                    line.append(validLines.get(y).charAt(x));
+                }
+            }
+    
+            // print the constructed line for the current row
             System.out.println(line);
         }
     }
+    
 
     private void updateBoard(Player player, char newChar) {
         int x = player.getPositionX(); // Obtiene la posición X del jugador
@@ -139,7 +163,6 @@ public class Board {
         }
         getPositions(validLines);
 
-        lookBoard();
 
         positionPlayers();
 
@@ -151,7 +174,7 @@ public class Board {
         updateBoard(human, 'P');
         updateBoard(bot, 'B');
 
-        lookBoard();
+        lookBoard5X5();
     }
 
     public void processCommand(String command) {
@@ -160,7 +183,7 @@ public class Board {
                 quit();
                 break;
             case "LOOK":
-                lookBoard();
+                lookBoard5X5();
                 break;
             case "MOVE":
                 System.out.print("Direction (NORTH, SOUTH, EAST, WEST): ");
@@ -268,8 +291,6 @@ public class Board {
 
 
 
-
-
     private void processCollection(Player player) {
         int x = player.getPositionX();
         int y = player.getPositionY();
@@ -287,11 +308,11 @@ public class Board {
         if (goldToCollect != null) {
             player.pickUpGold();
             golds.remove(goldToCollect);
-            System.out.println("Gold collected! Current total: " + player.getGoldCollected());
+            System.out.println("Success! You have now gold! Total: " + player.getGoldCollected());
     
-            // clear the gold from the board
+            // clear the gold from the board but keep the player 'P'
             StringBuilder line = new StringBuilder(validLines.get(y));
-            line.setCharAt(x, '.');
+            line.setCharAt(x, 'P'); // retain 'P' for the player
             validLines.set(y, line.toString());
         } else if (validLines.get(y).charAt(x) == 'E' && player instanceof HumanPlayer) {
             System.out.println("You reached the exit!");
@@ -300,6 +321,9 @@ public class Board {
             System.out.println("Nothing to collect here.");
         }
     }
+    
+
+
 
     public void win() {
         boolean isOnExit = false;
