@@ -183,62 +183,77 @@ public class Board {
     }
 
     private void processMove(String direction) {
-        // clear the human's previous position on the board
-        StringBuilder line = new StringBuilder(validLines.get(human.getPositionY()));
-        line.setCharAt(human.getPositionX(), '.');
-        validLines.set(human.getPositionY(), line.toString());
+        // save current position of the human player
+        int currentX = human.getPositionX();
+        int currentY = human.getPositionY();
     
-        // determine new position based on direction
+        // update the position of the human based on the direction
         switch (direction) {
             case "NORTH":
-                human.moveNorth();
+                human.moveNorth();   // move up
                 break;
             case "SOUTH":
-                human.moveSouth();
+                human.moveSouth();   // move down
                 break;
             case "EAST":
-                human.moveEast();
+                human.moveEast();    // move right
                 break;
             case "WEST":
-                human.moveWest();
+                human.moveWest();    // move left
                 break;
             default:
-                System.out.println("Invalid direction");
+                System.out.println("invalid direction");    // handle invalid input
                 return;
         }
     
         // check if the new position is valid (not a wall)
         if (validLines.get(human.getPositionY()).charAt(human.getPositionX()) == '#') {
-            System.out.println("You can't move, there's a wall.");
+            System.out.println("you can't move, there's a wall.");  // inform user
+            // revert to original position if movement is invalid
+            human.setPositionX(currentX);
+            human.setPositionY(currentY);
             return;
         }
     
-        // update the board to show the human's new position
+        // preserve gold if present at the previous position
+        StringBuilder line = new StringBuilder(validLines.get(currentY));
+        if (golds.stream().anyMatch(g -> g.getPositionX() == currentX && g.getPositionY() == currentY)) {
+            // if there is gold, keep it
+            line.setCharAt(currentX, 'G');
+        } else {
+            // otherwise, replace with a dot
+            line.setCharAt(currentX, '.');
+        }
+        validLines.set(currentY, line.toString());
+    
+        // update the board to show the new position of the human
         line = new StringBuilder(validLines.get(human.getPositionY()));
-        line.setCharAt(human.getPositionX(), 'P');
+        line.setCharAt(human.getPositionX(), 'P');    // place 'P' for the player
         validLines.set(human.getPositionY(), line.toString());
     
-        System.out.println("You moved " + direction);
+        System.out.println("you moved " + direction); // inform the user of the movement
     
-        // handle bot movement
+        // move the bot
         StringBuilder botLine = new StringBuilder(validLines.get(bot.getPositionY()));
-        botLine.setCharAt(bot.getPositionX(), '.'); // clear the bot's previous position
+        botLine.setCharAt(bot.getPositionX(), '.');   // clear the bot's previous position
         validLines.set(bot.getPositionY(), botLine.toString());
     
-        bot.chaseHuman(human, validLines); // move the bot
+        bot.chaseHuman(human, validLines);   // move the bot closer to the human
     
         // update the board with the bot's new position
         botLine = new StringBuilder(validLines.get(bot.getPositionY()));
-        botLine.setCharAt(bot.getPositionX(), 'B');
+        botLine.setCharAt(bot.getPositionX(), 'B');  // place 'B' for the bot
         validLines.set(bot.getPositionY(), botLine.toString());
-
-
+    
         // check if the bot caught the human
         lose();
-
-
-
     }
+    
+
+
+
+
+
 
     private void processCollection(Player player) {
         int x = player.getPositionX();
