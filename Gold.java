@@ -9,7 +9,7 @@ public class Gold {
 
     //atributes
     private int amount; // current amount of gold collected by the player
-    private static final int goalGold = 2; // total gold required to win (constant)
+    private static int goalGold;
     private int positionX;
     private int positionY;
 
@@ -28,16 +28,12 @@ public class Gold {
 
 
 
-    public static int  requiredGold(){  // i
+    public static void setGoalGold(int goal) {
+        goalGold = goal;
+    }
 
-    /**this method gives the total value of gold required to win  and it's triggered by the command  HELLO
-     * because is tied to the concept of total gold required to win,therefore is static, as this value does not vary between instances.
-     * 
-     * @return  the goalGold variable  meaning the number of gold to win
-     */
-
+    public static int requiredGold() {
         return goalGold;
-    
     }
 
 

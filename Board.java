@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random; // for assigning position of the player and bot
@@ -252,6 +254,7 @@ public class Board {
      * 
      * @param  filePath : file path of the board layout. The file must contain valid character such as P, B, G, #, . , E
      */
+        loadGoalGold(filePath);
 
         this.validLines = emptyFloor.getValidLines(filePath);
 
@@ -534,7 +537,7 @@ public class Board {
                 System.out.println("LOSE! You reached the exit but don't have enough gold.");
             }
         } else {
-            System.out.println("You quit the game without reaching an exit.");
+            System.out.println("LOSE! You quit the game without reaching an exit.");
         }
     
         System.exit(0);
@@ -552,6 +555,26 @@ public class Board {
             System.exit(0); // terminate the game
         }
     }
+    private void loadGoalGold(String filePath) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+    
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("win")) {
+                    String[] parts = line.split(" ");
+                    int goal = Integer.parseInt(parts[1]); //extract  necessary gold value
+                    Gold.setGoalGold(goal); // Configure the value
+                    System.out.println("Goal gold set to: " + goal); 
+                    break;
+                }
+            }
+    
+        } catch (Exception e) {
+            System.out.println("Error reading the file: " + e.getMessage());
+        }
+    }
     
     
 }
+
