@@ -113,7 +113,6 @@ public class Board {
                         walls.add(wall);
                         break;
 
-
                     case 'E': // Exit
                         // store exit coordinates
                         exits.add(new int[]{x, y});
@@ -123,6 +122,8 @@ public class Board {
                         dots.add(new int[]{x, y}); // store the coordinate
                         break;
 
+
+
                     default:
                         System.out.println("uknown character in map: " + currentChar);
                         break;
@@ -131,6 +132,17 @@ public class Board {
         }
     }
 
+    public void lookBoard() {
+        if (validLines == null || validLines.isEmpty()) {
+            System.out.println("No data available to show");
+            return;
+        }
+    
+        System.out.println("Current board:");
+        for (String line : validLines) {
+            System.out.println(line);
+        }
+    }
     public void lookBoard5X5() {
 
     /** This method is triggered by the command LOOK
@@ -308,6 +320,10 @@ public class Board {
                 System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");  // display the static amount of gold to have
                 break;
 
+            case "D": // Empty floor
+                // store empty floor coordinates
+            lookBoard();
+                break;
 
             default:
                 System.out.println("Unknown command. Please try again.");
