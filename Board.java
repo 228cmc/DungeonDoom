@@ -329,9 +329,9 @@ public class Board {
                 System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");  // display the static amount of gold to have
                 break;
 
-            case "D": // debugg not explain in the instructions so it's not accesible
-            lookBoard();
-                break;
+            //case "D": // debugg not explain in the instructions so it's not accesible
+            //lookBoard();
+                //break;
 
             default:
                 System.out.println("Unknown command. Please try again.");
@@ -392,7 +392,7 @@ public class Board {
             line.setCharAt(currentX, 'G');
 
         } else {
-            
+
             // otherwise, replace with a dot
             line.setCharAt(currentX, '.');
         }
