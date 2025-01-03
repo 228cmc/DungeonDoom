@@ -556,15 +556,26 @@ public class Board {
         }
     }
     private void loadGoalGold(String filePath) {
+    /**
+     * This method reads the configuration file to set the goal gold value for the game.
+     * It scans each line to find the "win" keyword, extracts the required gold amount,
+     * and configures it in the Gold class using a static setter. If an error occurs,
+     * such as the file being missing or improperly formatted, the method prints an 
+     * error message, ensuring the program can handle unexpected issues gracefully.
+     *
+     * @param filePath The path to the configuration file containing game settings.
+     */
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
     
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("win")) {
+
                     String[] parts = line.split(" ");
+
                     int goal = Integer.parseInt(parts[1]); //extract  necessary gold value
-                    Gold.setGoalGold(goal); // Configure the value
+                    Gold.setGoalGold(goal); // configure the value
                     System.out.println("Goal gold set to: " + goal); 
                     break;
                 }
