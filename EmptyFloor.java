@@ -76,21 +76,16 @@ public class EmptyFloor {
                     count++;
                     if (count ==1){
                         this.setWidth(line.length()); //set width 
-                        System.out.println(this.width);
                     }
                     //second validation according to the dimensions
                     if(this.width == line.length()) { 
                         lines.add(line);
-                    }else {
-                        System.err.println("invalid line because of lenght : "+line);
                     }
-                } else { 
-                    System.out.println("invalid line because of the characters: " + line);
-                }
+                } 
             }
 
             this.setHeight(lines.size()); //determine height with setter
-            System.out.println("height " + this.height);
+            //System.out.println("height " + this.height);
             bufferedReader.close();
 
 
