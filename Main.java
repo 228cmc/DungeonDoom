@@ -19,7 +19,7 @@ public class Main {
 
             // get file path
             if (args.length < 1) { //validate that is not empty
-                System.out.println("please type the path:");
+                System.out.println("please type the name of the file:");
                 filePath = fileScanner.nextLine(); //read path from the user input
 
 
