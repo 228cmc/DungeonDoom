@@ -133,6 +133,8 @@ public class Board {
     }
 
     public void lookBoard() {
+
+    /*method to see the whole board is for debugging not accesible for user because I don't explain the command to use it */
         if (validLines == null || validLines.isEmpty()) {
             System.out.println("No data available to show");
             return;
