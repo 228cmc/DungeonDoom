@@ -35,7 +35,7 @@ public class Main {
             commandScanner = new Scanner(System.in); // initialize scanner for commands
             String command;
 
-            System.out.println("Type a command (QUIT, LOOK, MOVE, HELLO, PICKUP, GOLD):"); //specify which commmands the user can type
+            System.out.println("Type a command (QUIT, LOOK, MOVE NORTH, MOVE SOUTH, MOVE EAST, MOVE WEST, HELLO, PICKUP, GOLD):"); //specify which commmands the user can type
             while (true) {
                 System.out.print("your turn: ");
                 command = commandScanner.nextLine(); // read a command
