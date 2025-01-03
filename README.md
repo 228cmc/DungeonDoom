@@ -77,14 +77,14 @@ The bot that chases you. It has:
 - `chaseHuman()`: Moves toward the human.
 
 ### **Wall**
-Represents a wall.
+Represents a wall
 
 ### **Gold**
 Represents gold. Includes:
 - `requiredGold()`: Shows how much gold you need to win.
 
 ### **EmptyFloor**
-Checks the board dimensions and validates lines in the board file.
+Checks the board dimensions and validates lines in the board file
 
 
 ## How to Play
@@ -119,19 +119,19 @@ Checks the board dimensions and validates lines in the board file.
 
 3. **Commands**:
    - `LOOK`: Shows a 5x5 area around you.
-   - `MOVE`: Move north, south, east, or west.
-   - `PICKUP`: Pick up gold.
-   - `HELLO`: Shows how much gold you need to win.
-   - `QUIT`: Ends the game.
+   - `MOVE`: Move north, south, east, or west
+   - `PICKUP`: Pick up gold
+   - `HELLO`: shows how much gold you need to win
+   - `QUIT`: ends the game.
 
 
 
 ## Rules
 
-1. Collect enough gold (`2` by default).
-2. Go to an exit with the gold to win.
+1. Collect enough gold (`2` by default)
+2. go to an exit with the gold to win.
 3. If the bot catches you, you lose.
-4. You can’t move through walls.
+4. you can’t move through walls
 
 
 
