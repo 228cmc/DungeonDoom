@@ -284,7 +284,7 @@ public class Board {
      * 
      * QUIT exits the game if you have enough gold
      * LOOK displays 5x5 view of th eboard with the human centered
-     * MOVE  moves according to the upcoming direction
+     * MOVE <direction> moves according to the upcoming direction, allowed directions : north, south, east, west.
      * PICKUP collects gold if there is a G or display a error message
      * GOLD gives you the quantity of gold that you have
      * HELLO shows the quantity of gold to win
@@ -293,7 +293,12 @@ public class Board {
      * 
      */
 
-        switch (command.toUpperCase()) {
+    // Split the command to handle commands with additional arguments (e.g., MOVE NORTH)
+    String[] parts = command.split(" ");
+    String mainCommand = parts[0].toUpperCase(); // first part of the command (e.g., MOVE)
+    String direction = parts.length > 1 ? parts[1].toUpperCase() : ""; // second part, if exists (e.g., NORTH)
+
+    switch (mainCommand) {
 
             case "QUIT":
                 quit(); // if you have enough money you will exit the game
@@ -303,15 +308,14 @@ public class Board {
                 lookBoard5X5(); // apply the display method of 5x5 human centered
                 break;
 
-            case "MOVE":
-
-
-                System.out.print("Direction (NORTH, SOUTH, EAST, WEST): ");
-                String direction = scanner.nextLine().toUpperCase();
-                processMove(direction); //apply movement according to the direction given by the user
-
-
+                case "MOVE":
+                if (!direction.isEmpty()) {
+                    processMove(direction); // Process the move in the given direction
+                } else {
+                    System.out.println("Invalid MOVE command. Specify a direction (e.g., MOVE NORTH).");
+                }
                 break;
+
             case "PICKUP":
                 processCollection(human); // pick the gold if there is a G if not display an error
                 break;
@@ -325,8 +329,7 @@ public class Board {
                 System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");  // display the static amount of gold to have
                 break;
 
-            case "D": // Empty floor
-                // store empty floor coordinates
+            case "D": // debugg not explain in the instructions so it's not accesible
             lookBoard();
                 break;
 
