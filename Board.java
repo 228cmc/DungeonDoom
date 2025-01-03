@@ -4,15 +4,52 @@ import java.util.Random; // for assigning position of the player and bot
 import java.util.Scanner; // for movement
 
 public class Board {
-/** ... */
+
+/** this class serves as the main centralizer of the program
+ * it represents the game board and have the logic for initializing and managing  the game.
+ * It handles players, gold, walls  along wth user commands
+ * currently the class is initialized with just one player that's why we declare a attribute called human and an attribute called bot
+ * 
+  * Attributes:
+ * walls: this i s a list of wall objects representing obstacles on the board
+ * golds :  list of Gold objects
+ * botPlayers: a list of Botlayer objects
+ * humanPlayers: a list of HumanPlayer objects,
+ * emptyFloor :  an EmptyFloor object to determine the board dimensions
+ * exits: a list of integer arrays representing exit coordinates on the board
+ * dots: list of integer arrays representing empty tiles on the board
+ * validLines : A list of strings representing valid rows of the board
+ * scanner: a Scanner object for reading user inputs
+ * human : a reference to the first  HumanPlayer object currently in the game
+ * bot : a reference to the first BotPlayer object currently in the game   
+ * 
+ * 
+ *  Main methods:
+ * 
+ * - getPositions(List<String> lines) : reads the board layout and creates game objects
+ * - lookBoard5X5():displays a 5x5 view of the board centered on the human player
+ * - updateBoard(Player player, char newChar): Updates the board with a new character at the player's position
+ * - positionPlayers(): assigns random initial positions to the human and bot players
+ * - initializeBoard(String filePath) : sets up the board from a file and prepares the game state
+ * - processCommand(String command): handles user commands like `LOOK`, `MOVE`, and `PICKUP`
+ * - processMove(String direction): moves the human player in the specified direction if valid
+ * - processCollection(Player player) :allows a player to collect gold at their current position
+ * - win(): Checks if the human player has met the winning conditions
+ * - quit() : Exits the game, optionally checking the game state
+ * - lose(): Ends the game if the bot catches the human player
+ *
+ * 
+ */
 
 
-    
+
     // declare variables with objects defined in other java files
+
     private List<Wall> walls;
     private List<Gold> golds; 
     private List<BotPlayer> botPlayers;
     private List<HumanPlayer> humanPlayers;
+
     private EmptyFloor emptyFloor;//the only one  singular is emptyFloor because is just for the dimensions
     private List<int[]> exits;  // to store coordinates
     private List<int[]> dots;
@@ -24,7 +61,7 @@ public class Board {
     private BotPlayer bot;
 
     public Board() {
-/** ... */
+/** constructor to initialize the board with the atributes defined before */
          //we use new because we are not longer working with primitive variables
 
         this.emptyFloor = new EmptyFloor(0, 0);
@@ -96,7 +133,10 @@ public class Board {
 
     public void lookBoard5X5() {
 
-    /** ... */
+    /** This method is triggered by the command LOOK
+     * it displays the 5x5 section of the board  with P as a center
+     * if there are characters out of bound areas they are displayed as #
+    */
 
         if (validLines == null || validLines.isEmpty()) {
             System.out.println("no data available to show");
@@ -137,7 +177,10 @@ public class Board {
     
 
     private void updateBoard(Player player, char newChar) {
-    /** ... */
+    /** this method updates the board in order to reflect the player's position with the specificed character
+     * @param  player : the player whose position is being updated could be bot or human
+     * @param newChar : the new character to place at the player's position
+     */
 
 
         int x = player.getPositionX(); // get the player's X position
@@ -152,7 +195,9 @@ public class Board {
     }
     
     private void positionPlayers() {
-    /** ... */
+    /** this method gives random position to the human and bot player in the valid   positions
+     *   this valid position are either a dot or E   
+     * */
 
         Random random = new Random();
     
@@ -185,8 +230,14 @@ public class Board {
     }
     
 
-    public void initializeBoard(String filePath) {
-    /** ... */
+    public void initializeBoard(String filePath) 
+    {
+    /** initialized the game board  by loading the layout form a file. 
+     * It read the file , loads the board, validates and stores the rows,  identifys walls gold, players exits dots
+     * assigns random poistions to the players, and updates  the board. 
+     * 
+     * @param  filePath : file path of the board layout. The file must contain valid character such as P, B, G, #, . , E
+     */
 
         this.validLines = emptyFloor.getValidLines(filePath);
 
@@ -194,10 +245,10 @@ public class Board {
             System.out.println("No valid lines where found");
             return;
         }
-        getPositions(validLines);
+        getPositions(validLines); //process the board to identify game elements
 
 
-        positionPlayers();
+        positionPlayers(); //   position randonmly the players
 
         
         this.human = humanPlayers.get(0);
@@ -208,21 +259,31 @@ public class Board {
         updateBoard(human, 'P');
         updateBoard(bot, 'B');
 
-        lookBoard5X5();
     }
 
     public void processCommand(String command) {
 
-    /** ... */
+    /** this method process the user commands and executes  the game actions
+     * 
+     * QUIT exits the game if you have enough gold
+     * LOOK displays 5x5 view of th eboard with the human centered
+     * MOVE  moves according to the upcoming direction
+     * PICKUP collects gold if there is a G or display a error message
+     * GOLD gives you the quantity of gold that you have
+     * HELLO shows the quantity of gold to win
+     * 
+     * @param  command : the command entered by the user. it allows uppper an lowercase
+     * 
+     */
 
         switch (command.toUpperCase()) {
 
             case "QUIT":
-                quit();
+                quit(); // if you have enough money you will exit the game
                 break;
 
             case "LOOK":
-                lookBoard5X5();
+                lookBoard5X5(); // apply the display method of 5x5 human centered
                 break;
 
             case "MOVE":
@@ -230,21 +291,21 @@ public class Board {
 
                 System.out.print("Direction (NORTH, SOUTH, EAST, WEST): ");
                 String direction = scanner.nextLine().toUpperCase();
-                processMove(direction);
+                processMove(direction); //apply movement according to the direction given by the user
 
 
                 break;
             case "PICKUP":
-                processCollection(human);
+                processCollection(human); // pick the gold if there is a G if not display an error
                 break;
 
 
             case "GOLD":
-                System.out.println("Gold owned: " + human.getGoldCollected());
+                System.out.println("Gold owned: " + human.getGoldCollected()); // use the getter of Gold Collected to see the quantity of gold
                 break;
 
                 case "HELLO":
-                System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");
+                System.out.println("Gold to win " + Gold.requiredGold() + " gold to win.");  // display the static amount of gold to have
                 break;
 
 
@@ -256,7 +317,14 @@ public class Board {
 
     private void processMove(String direction) {
 
-    /** ... */
+    /** this method is triggered by the comand MOVE
+     * it handles the movement of the human player based  on the direction
+     * it allows movement if valid otherwise the player remains the same
+     * 
+     * @param direction : the direction in which the player wants to move.. the valid are north, south, east, west , and it allows lower and uppercase
+     * 
+     * 
+     */
 
         // save current position of the human player
         int currentX = human.getPositionX();
@@ -264,15 +332,18 @@ public class Board {
     
         // update the position of the human based on the direction
         switch (direction) {
+
             case "NORTH":
                 human.moveNorth();   // move up
                 break;
             case "SOUTH":
                 human.moveSouth();   // move down
                 break;
+
             case "EAST":
                 human.moveEast();    // move right
                 break;
+
             case "WEST":
                 human.moveWest();    //move left
                 break;
@@ -348,7 +419,14 @@ public class Board {
 
     private void processCollection(Player player) {
 
-    /** ... */
+    /**This method is triggered by the command PICKUP
+     * It handles the collection of the gold or interaction with the exit title for a player
+     * 
+     * The method checks theposition of the player and evaluates if there is gold in the current position  and collects it adding up the amount of gold and if not an error message is displayed
+     * if the human player is on exit tile  it checks if it has enough money to apply the method win
+     * 
+     * @param player : the player attempting to collect gold or interact
+    */
 
         int x = player.getPositionX();
         int y = player.getPositionY();
@@ -387,9 +465,13 @@ public class Board {
 
     public void win() {
 
-    /** ... */
+    /** checks if the human was won the game for that it must be on exit tile, and have enough gold
+     * 
+     * if the player is on exit but doesn't have enough gold a message is shown saying he doesn't have enough gold and  is not in exit a message comes up saying the have to go to exit with enough gold
+     */
     
         boolean isOnExit = false;
+        
         for (int[] exit : exits) {
             if (exit[0] == human.getPositionX() && exit[1] == human.getPositionY()) {
                 isOnExit = true;
@@ -414,7 +496,9 @@ public class Board {
 
     public void quit() {
 
-    /** ... */
+    /** this method is triggered by the comand QUIT
+     * it ends the game if the player has reached exit 
+     */
         boolean isOnExit = false;
     
         
@@ -440,6 +524,8 @@ public class Board {
 
 
     public void lose() {
+
+    /** the method handles when the player loose  meaning when the bot catches the human */
         
         // check if the bot's position is the same as the human's position
 
