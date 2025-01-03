@@ -33,7 +33,7 @@ public class Board {
  * - updateBoard(Player player, char newChar): Updates the board with a new character at the player's position
  * - positionPlayers(): assigns random initial positions to the human and bot players
  * - initializeBoard(String filePath) : sets up the board from a file and prepares the game state
- * - processCommand(String command): handles user commands like `LOOK`, `MOVE`, and `PICKUP`
+ * - processCommand(String command): handles user commands like `LOOK`, `MOVE <direction>`, and `PICKUP`
  * - processMove(String direction): moves the human player in the specified direction if valid
  * - processCollection(Player player) :allows a player to collect gold at their current position
  * - win(): Checks if the human player has met the winning conditions
@@ -201,8 +201,8 @@ public class Board {
 
         int x = player.getPositionX(); // get the player's X position
         int y = player.getPositionY(); // same for the the player's y position
-        // Actualiza el carácter en la posición especificada
 
+        // Updates the character at the specified position
         StringBuilder line = new StringBuilder(validLines.get(y));
 
         line.setCharAt(x, newChar); // replaces character at position
@@ -392,6 +392,7 @@ public class Board {
             line.setCharAt(currentX, 'G');
 
         } else {
+            
             // otherwise, replace with a dot
             line.setCharAt(currentX, '.');
         }
