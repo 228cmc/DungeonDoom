@@ -50,7 +50,7 @@ public void setPositionY(int positionY){
 }
 
 
-public int getGoldCollected(){
+public int getGoldCollected(){ // this method is used in the processCommand method when the comand is GOLD
     return goldCollected;
 }
 
